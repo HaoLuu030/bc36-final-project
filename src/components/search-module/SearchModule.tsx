@@ -1,5 +1,5 @@
 import { SearchIcon } from "@heroicons/react/solid";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 //API
 import { fetchLocationApi } from "../../services/location";
 //CSS
@@ -7,10 +7,12 @@ import "./index.scss";
 
 interface Props {
   isStartedSearch: boolean;
+  setIsStartedSearch: (type: boolean) => void;
 }
 export default function SearchModule(props: Props) {
   const [isSearching, setIsSearching] = useState(false);
   const [locationList, setLocationList] = useState([]);
+
   //highlight the form item being chosen
   const handleClick = (e: React.MouseEvent<HTMLDivElement>): void => {
     setIsSearching(true);
@@ -26,13 +28,26 @@ export default function SearchModule(props: Props) {
   useEffect(() => {
     getLocation();
   }, []);
+  const searchModuleRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const eventHandler = (e: any) => {
+      if (!searchModuleRef.current?.contains(e.target)) {
+        props.setIsStartedSearch(false);
+      }
+    };
+    document.addEventListener("mousedown", eventHandler);
+  }, []);
   const renderLocationList = () => {
     return locationList.map((elem: { id: number; tenViTri: string }) => {
-      return <option key={elem.id} value={elem.tenViTri} />;
+      return (
+        <option key={elem.id} data-value={elem.id} value={elem.tenViTri} />
+      );
     });
   };
+
   return (
     <div
+      ref={searchModuleRef}
       className={`pt-3 w-full bg-white search-form row-start-2 col-start-1 col-span-3 ${
         props.isStartedSearch ? "scale-100" : "scale-0"
       }`}
@@ -53,6 +68,9 @@ export default function SearchModule(props: Props) {
           >
             <label htmlFor="location">Địa điểm</label>
             <input
+              onChange={(e) => {
+                console.log(e.target.value);
+              }}
               placeholder="Bạn muốn đi đâu?"
               className="bg-transparent hover:border-none outline-none"
               type="text"

@@ -1,22 +1,12 @@
-import {
-  SearchIcon,
-  GlobeAltIcon,
-  MenuIcon,
-  UserCircleIcon,
-} from "@heroicons/react/solid";
-import { useEffect, useState } from "react";
+import { SearchIcon, GlobeAltIcon } from "@heroicons/react/solid";
+import {useState} from "react";
+import DropDownMenu from "../drop-down-menu/DropDownMenu";
 
 import SearchModule from "../search-module/SearchModule";
 
 function Header() {
   const [isStartedSearch, setIsStartedSearch] = useState(false);
 
-  useEffect(() => {
-    const closeSearchModule = (e: any) => {
-      console.log(e);
-    };
-    document.body.addEventListener("click", closeSearchModule);
-  }, []);
   return (
     <header className="sticky top-0 z-50 grid grid-cols-1 place-items-center sm:place-items-stretch sm:grid-cols-3 bg-white shadow-md p-5 md:px-10">
       {/* left */}
@@ -78,13 +68,10 @@ function Header() {
       <div className="hidden sm:flex items-center justify-end space-x-4 text-gray-500">
         <p className="hidden lg:inline cursor-pointer">Trở thành chủ nhà</p>
         <GlobeAltIcon className="h-6 hidden md:block" />
-        <div className="flex items-center space-x-2 border-2 rounded-full p-2 cursor-pointer">
-          <MenuIcon className="h-6" />
-          <UserCircleIcon className="h-6" />
-        </div>
+        <DropDownMenu />
       </div>
       {/* search module */}
-      <SearchModule isStartedSearch={isStartedSearch} />
+      <SearchModule isStartedSearch={isStartedSearch} setIsStartedSearch = {setIsStartedSearch} />
     </header>
   );
 }
