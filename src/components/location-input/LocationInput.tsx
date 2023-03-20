@@ -8,6 +8,7 @@ interface Props {
 function LocationInput(props: Props) {
   const [locationInput, setLocationInput] = useState("");
   const [locationList, setLocationList] = useState([]);
+
   const handleChange = (e: any): void => {
     setLocationInput(e.target.value);
   };
@@ -19,27 +20,25 @@ function LocationInput(props: Props) {
   };
   const getLocation = async () => {
     const result = await fetchLocationApi();
-    const filteredList = result.data.content.filter(
-      (elem: { tenViTri: string }) => {
-        return (
-          locationInput &&
-          elem.tenViTri.toLowerCase().includes(locationInput.toLowerCase())
-        );
-      }
-    );
-    setLocationList(filteredList);
+
+    setLocationList(result.data.content);
   };
   useEffect(() => {
     getLocation();
-  }, [locationInput]);
+  }, []);
   const handleSelectLocation = (value: string) => {
     setLocationInput(value);
   };
-  const renderLocation = (
-    list: { tenViTri: string; id: number; tinhThanh: string }[]
-  ) => {
-    return list.map(
-      (elem: { tenViTri: string; id: number; tinhThanh: string }) => {
+  const renderLocation = () => {
+    return locationList
+      .filter((elem: { tenViTri: string }) => {
+        return (
+          locationInput &&
+          elem.tenViTri.toLowerCase().includes(locationInput.toLowerCase()) &&
+          elem.tenViTri !== locationInput
+        );
+      })
+      .map((elem: { tenViTri: string; id: number; tinhThanh: string }) => {
         return (
           <div
             onClick={() => {
@@ -56,8 +55,7 @@ function LocationInput(props: Props) {
             </p>
           </div>
         );
-      }
-    );
+      });
   };
   return (
     <div
@@ -78,9 +76,19 @@ function LocationInput(props: Props) {
         onClick={handleSearch}
         className="lg:hidden inline-flex h-10 bg-red-400 text-white rounded-full p-2 cursor-pointer mx-2"
       />
-      {locationList.length > 0 ? (
-        <div className="search-result absolute bg-white w-60 left-0 top-20 rounded-lg shadow-2xl space-y-2 max-h-[300px] overflow-y-auto py-2">
-          {renderLocation(locationList)}
+      {locationList.filter((elem: { tenViTri: string }) => {
+        return (
+          locationInput &&
+          elem.tenViTri.toLowerCase().includes(locationInput.toLowerCase()) &&
+          elem.tenViTri !== locationInput
+        );
+      }).length > 0 ? (
+        <div
+          className={`search-result bg-white w-60 left-0 top-20 rounded-lg shadow-2xl space-y-2 max-h-[300px] overflow-y-auto py-2 ${
+            locationInput ? "absolute" : "hidden"
+          }`}
+        >
+          {renderLocation()}
         </div>
       ) : (
         ""
