@@ -3,39 +3,37 @@ import { SearchIcon, LocationMarkerIcon } from "@heroicons/react/solid";
 import { fetchLocationApi } from "../../services/location";
 interface Props {
   handleClick: (type: any) => void;
+  locationInput: string;
+  setLocationInput: (type: any) => void;
+  locationList: { tenViTri: string; id: number; tinhThanh: string }[];
+  setLocationList: (type: any) => void;
+  handleSearch: () => void;
 }
 
 function LocationInput(props: Props) {
-  const [locationInput, setLocationInput] = useState("");
-  const [locationList, setLocationList] = useState([]);
-
   const handleChange = (e: any): void => {
-    setLocationInput(e.target.value);
-  };
-  const handleSearch = (): void => {
-    const idx = locationList.findIndex((location: { tenViTri: string }) => {
-      return location.tenViTri === locationInput;
-    });
-    console.log(`/roombycity/${locationList[idx]["id"]}`);
+    props.setLocationInput(e.target.value);
   };
   const getLocation = async () => {
     const result = await fetchLocationApi();
 
-    setLocationList(result.data.content);
+    props.setLocationList(result.data.content);
   };
   useEffect(() => {
     getLocation();
   }, []);
   const handleSelectLocation = (value: string) => {
-    setLocationInput(value);
+    props.setLocationInput(value);
   };
   const renderLocation = () => {
-    return locationList
+    return props.locationList
       .filter((elem: { tenViTri: string }) => {
         return (
-          locationInput &&
-          elem.tenViTri.toLowerCase().includes(locationInput.toLowerCase()) &&
-          elem.tenViTri !== locationInput
+          props.locationInput &&
+          elem.tenViTri
+            .toLowerCase()
+            .includes(props.locationInput.toLowerCase()) &&
+          elem.tenViTri !== props.locationInput
         );
       })
       .map((elem: { tenViTri: string; id: number; tinhThanh: string }) => {
@@ -64,29 +62,28 @@ function LocationInput(props: Props) {
     >
       <label htmlFor="location">Địa điểm</label>
       <input
-        value={locationInput}
+        value={props.locationInput}
         onChange={handleChange}
         placeholder="Bạn muốn đi đâu?"
         className="bg-transparent hover:border-none outline-none"
         type="text"
         id="location"
-        list="locations"
       />
       <SearchIcon
-        onClick={handleSearch}
+        onClick={props.handleSearch}
         className="lg:hidden inline-flex h-10 bg-red-400 text-white rounded-full p-2 cursor-pointer mx-2"
       />
-      {locationList.filter((elem: { tenViTri: string }) => {
+      {props.locationList.filter((elem: { tenViTri: string }) => {
         return (
-          locationInput &&
-          elem.tenViTri.toLowerCase().includes(locationInput.toLowerCase()) &&
-          elem.tenViTri !== locationInput
+          props.locationInput &&
+          elem.tenViTri
+            .toLowerCase()
+            .includes(props.locationInput.toLowerCase()) &&
+          elem.tenViTri !== props.locationInput
         );
       }).length > 0 ? (
         <div
-          className={`search-result bg-white w-60 left-0 top-20 rounded-lg shadow-2xl space-y-2 max-h-[300px] overflow-y-auto py-2 ${
-            locationInput ? "absolute" : "hidden"
-          }`}
+          className={`search-result bg-white w-60 left-0 top-20 rounded-lg shadow-2xl space-y-2 max-h-[300px] overflow-y-auto py-2 absolute`}
         >
           {renderLocation()}
         </div>

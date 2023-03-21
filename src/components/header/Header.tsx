@@ -1,12 +1,14 @@
 import { SearchIcon, GlobeAltIcon } from "@heroicons/react/solid";
-import {useState} from "react";
+import { useState } from "react";
 import DropDownMenu from "../drop-down-menu/DropDownMenu";
 
 import SearchModule from "../search-module/SearchModule";
+import { useSearchParams } from "react-router-dom";
+import moment from "moment";
 
 function Header() {
   const [isStartedSearch, setIsStartedSearch] = useState(false);
-
+  const [searchParams] = useSearchParams();
   return (
     <header className="sticky top-0 z-50 grid grid-cols-1 place-items-center sm:place-items-stretch sm:grid-cols-3 bg-white shadow-md p-5 md:px-10">
       {/* left */}
@@ -54,15 +56,34 @@ function Header() {
           </p>
         </div>
       ) : (
-        <button
+        <div
           onClick={() => {
             setIsStartedSearch(!isStartedSearch);
           }}
-          className="flex items-center border-2 rounded-full py-2 md:shadow-sm justify-between search-button w-1/2 sm:w-auto"
+          className="flex items-center border-2 rounded-full py-2 md:shadow-sm justify-between search-button min-w-fit max-w-md cursor-pointer mx-auto"
         >
-          <p className="ml-2">Bắt đầu tìm kiếm</p>
-          <SearchIcon className="inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer mx-2" />
-        </button>
+          <div className="flex justify-center flex-grow px-4">
+            <p className="search-info border-r pr-2">
+              {searchParams.get("location") || "Địa điểm bất kỳ"}
+            </p>
+            <p className="search-info border-r ml-2 pr-2">
+              {searchParams.get("checkInDate") &&
+              searchParams.get("checkOutDate")
+                ? `${moment(searchParams.get("checkInDate")).format(
+                    "DD/MM"
+                  )} - ${moment(searchParams.get("checkOutDate")).format(
+                    "DD/MM"
+                  )}`
+                : "Tuần bất kỳ"}
+            </p>
+            <p className="search-info ml-2">
+              {searchParams.get("numOfGuest")
+                ? `${searchParams.get("numOfGuest")} khách`
+                : "Thêm khách"}
+            </p>
+          </div>
+          <SearchIcon className="inline-flex h-8 w-8 bg-red-400 text-white rounded-full p-2 cursor-pointer mx-2" />
+        </div>
       )}
       {/* right */}
       <div className="hidden sm:flex items-center justify-end space-x-4 text-gray-500">
@@ -71,7 +92,10 @@ function Header() {
         <DropDownMenu />
       </div>
       {/* search module */}
-      <SearchModule isStartedSearch={isStartedSearch} setIsStartedSearch = {setIsStartedSearch} />
+      <SearchModule
+        isStartedSearch={isStartedSearch}
+        setIsStartedSearch={setIsStartedSearch}
+      />
     </header>
   );
 }

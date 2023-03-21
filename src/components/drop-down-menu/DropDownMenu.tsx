@@ -26,7 +26,7 @@ function DropDownMenu() {
         <UserCircleIcon className="h-6" />
       </button>
       <div
-        className={`drop-down-menu absolute bg-white z-50 w-48 right-0 top-18 shadow-black shadow-2xl rounded-md mt-2 ${
+        className={`drop-down-menu absolute bg-white z-50 w-48 right-0 top-18 shadow-lg rounded-md mt-2 border-gray-200 border ${
           showMenu ? "visible" : "hidden"
         }`}
       >

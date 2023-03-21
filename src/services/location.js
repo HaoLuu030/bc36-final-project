@@ -13,3 +13,4 @@ export const fetchLocationByPageApi = () => {
     method: "GET",
   });
 };
+

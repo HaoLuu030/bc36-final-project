@@ -1,4 +1,5 @@
 import React from "react";
+import { randomNumGenerator } from "../../../../utils";
 interface Props {
   location: {
     id: number;
@@ -19,7 +20,7 @@ function SmallCard(props: Props) {
       <div>
         <h2>{props.location.tinhThanh}</h2>
         <h3 className="text-gray-500">
-          {Math.floor(Math.random() * 120 + 15)} phút chạy xe
+          {randomNumGenerator(15, 120)} phút chạy xe
         </h3>
       </div>
     </div>

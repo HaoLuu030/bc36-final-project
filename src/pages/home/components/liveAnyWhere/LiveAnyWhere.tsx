@@ -1,4 +1,4 @@
-import cardData from "../../../../mediumCardData.json";
+import cardData from "../../../../data/mediumCardData.json";
 import MediumCard from "../mediumCard/MediumCard";
 function LiveAnyWhere() {
   const renderCard = () => {
