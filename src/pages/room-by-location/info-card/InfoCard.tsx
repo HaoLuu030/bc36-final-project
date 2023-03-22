@@ -2,7 +2,14 @@ import React from "react";
 import { HeartIcon, StarIcon } from "@heroicons/react/solid";
 import "./index.scss";
 import { useSearchParams } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation } from "swiper";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import { randomNumGenerator } from "../../../utils";
+import moment from "moment";
 interface Props {
   price: number;
   bed: number;
@@ -15,37 +22,75 @@ interface Props {
 function InfoCard(props: Props) {
   const [searchParams] = useSearchParams();
   return (
-    <div className="flex py-7 px-2 pr-4 border-b cursor-pointer hover: opacity-80 hover:shadow-lg transition-none duration-200 ease-out first:border-t">
-      <div className="relative w-60 h-30 overflow-hidden background flex-shrink rounded-lg">
-        <img
-          src="https://a0.muscache.com/im/pictures/miso/Hosting-821938101321440797/original/293fd61c-841d-4dc5-a397-4559ea4cbdf3.jpeg?im_w=720"
-          alt={props.name}
-          className="object-fill w-full h-full rounded-lg"
-        />
-      </div>
-      <div className="flex flex-col flex-grow pl-5">
-        <div className="flex justify-between">
-          <p className="text-xs">
-            Toàn bộ căn hộ dịch vụ tại {searchParams.get("location")}
-          </p>
-          <HeartIcon className="h-7 cursor-pointer" />
-        </div>
-        <h4>{props.name}</h4>
-        <div className="border-b w-10 pt-2"></div>
-        <p className="pt-2 text-sm text-gray-500 flex-grow">
-          {props.bathRoom} phòng tắm, {props.bedRoom} phòng ngủ, {props.living}{" "}
-          phòng khách, {props.bed} giường
+    <div className="info-card w-11/12">
+      <Swiper
+        className="flex items-center relative mb-4"
+        slidesPerView={1}
+        modules={[Pagination, Navigation]}
+        pagination={{
+          clickable: false,
+        }}
+        navigation={{ enabled: true }}
+      >
+        <SwiperSlide className="info-card-image-container">
+          <img
+            src="https://a0.muscache.com/im/pictures/372940fd-16f1-46bf-9ec0-f77c1f0bd160.jpg?im_w=720"
+            alt="img 1"
+            className="info-card-image"
+          />
+        </SwiperSlide>
+        <SwiperSlide className="info-card-image-container">
+          <img
+            src="https://a0.muscache.com/im/pictures/3d262be7-6c34-4151-9910-2ea684cc241c.jpg?im_w=720"
+            alt="img 2"
+            className="info-card-image"
+          />
+        </SwiperSlide>
+        <SwiperSlide className="info-card-image-container">
+          <img
+            src="https://a0.muscache.com/im/pictures/22259627-28aa-4d33-ba4f-6a167787550c.jpg?im_w=720"
+            alt="img 3"
+            className="info-card-image"
+          />
+        </SwiperSlide>
+        <SwiperSlide className="info-card-image-container">
+          <img
+            src="https://a0.muscache.com/im/pictures/31b573d7-f031-4958-a3fa-03276e53805e.jpg?im_w=720"
+            alt="img 4"
+            className="info-card-image"
+          />
+        </SwiperSlide>
+        <SwiperSlide className="info-card-image-container">
+          <img
+            src="https://a0.muscache.com/im/pictures/fce1bef6-ada1-4b16-8526-9670ff76f9e3.jpg?im_w=720"
+            alt="img 5"
+            className="info-card-image"
+          />
+        </SwiperSlide>
+        <HeartIcon className="h-8 w-8 sm:h-6 sm:w-6 absolute z-50 top-4 right-4 opacity-80" />
+      </Swiper>
+
+      <div className="flex justify-between items-center">
+        <h4 className="text-lg font-bold">
+          Căn hộ ở {searchParams.get("location")}
+        </h4>
+        <p className="flex items-center text-xl font-bold">
+          <StarIcon className="h-8 w-8 md:h-6 md:w-6 text-red-400" />
+          {randomNumGenerator(1, 5)}
         </p>
-        <div className="flex justify-between">
-          <p className="flex items-center">
-            <StarIcon className="h-5 text-red-400" />
-            {randomNumGenerator(1, 5)}
-          </p>
-          <p className="font-semibold text-lg lg:text-2xl pb-2">
-            ${props.price}/Đêm
-          </p>
-        </div>
       </div>
+      <p className="info-text md:whitespace-nowrap md:overflow-hidden md:text-ellipsis">
+        {props.name}
+      </p>
+      <p className="info-text">{props.bed} giường</p>
+      <p className="info-text">
+        {`${moment(searchParams.get("checkInDate")).format("DD/MM")} - ${moment(
+          searchParams.get("checkOutDate")
+        ).format("DD/MM")}`}
+      </p>
+      <p className="text-right">
+        <strong className="text-2xl">${props.price}</strong>/đêm
+      </p>
     </div>
   );
 }

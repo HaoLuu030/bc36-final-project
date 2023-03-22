@@ -44,8 +44,8 @@ function RoomByLocation() {
     );
   };
   return (
-    <main className="pt-14 px-6">
-      <section>
+    <main className="pt-14 px-6 md:grid md:grid-cols-3">
+      <section className="col-span-2">
         {/* extra info */}
         <p className="text-xs">
           Có {randomNumGenerator(1, 2000)} chỗ ở cho{" "}
@@ -69,7 +69,22 @@ function RoomByLocation() {
           <p className="button">Bộ lọc khác</p>
         </div>
         {/* body */}
-        {renderLocationList()}
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2
+          space-y-4 sm:space-y-0 pb-4 gap-0"
+        >
+          {renderLocationList()}
+        </div>
+      </section>
+      <section className="hidden md:col-span-1 md:block">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15738134.745292148!2d96.85510179240505!3d15.62804288979782!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31157a4d736a1e5f%3A0xb03bb0c9e2fe62be!2sVietnam!5e0!3m2!1sen!2s!4v1679470592661!5m2!1sen!2s"
+          style={{ border: 0 }}
+          allowFullScreen={true}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          className="w-full h-full"
+        ></iframe>
       </section>
     </main>
   );
