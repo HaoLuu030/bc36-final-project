@@ -6,3 +6,10 @@ export const fetchRoombyLocationApi = (locationId) => {
     method: "GET",
   });
 };
+
+export const fetchRoomById = (roomId) => {
+  return axiosRequest({
+    url: `phong-thue/${roomId}`,
+    method: "GET",
+  });
+};

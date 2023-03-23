@@ -4,20 +4,19 @@ import "./index.scss";
 import { useSearchParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
-
+//swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { randomNumGenerator } from "../../../utils";
 import moment from "moment";
+import { NavLink } from "react-router-dom";
 interface Props {
   price: number;
   bed: number;
-  living: number;
-  bedRoom: number;
-  bathRoom: number;
   image: string;
   name: string;
+  id: number;
 }
 function InfoCard(props: Props) {
   const [searchParams] = useSearchParams();
@@ -70,27 +69,32 @@ function InfoCard(props: Props) {
         <HeartIcon className="h-8 w-8 sm:h-6 sm:w-6 absolute z-50 top-4 right-4 opacity-80" />
       </Swiper>
 
-      <div className="flex justify-between items-center">
-        <h4 className="text-lg font-bold">
-          Căn hộ ở {searchParams.get("location")}
-        </h4>
-        <p className="flex items-center text-xl font-bold">
-          <StarIcon className="h-8 w-8 md:h-6 md:w-6 text-red-400" />
-          {randomNumGenerator(1, 5)}
+      <NavLink
+        to={`/room-details/${props.id}`}
+        className="card-body cursor-pointer hover:shadow-md transition duration-150 ease-out px-4 pb-2 rounded-md active:scale-90 block"
+      >
+        <div className="flex justify-between items-center">
+          <h4 className="text-lg font-bold">
+            Căn hộ ở {searchParams.get("location")}
+          </h4>
+          <p className="flex items-center text-xl font-bold">
+            <StarIcon className="h-8 w-8 md:h-6 md:w-6 text-red-400" />
+            {randomNumGenerator(1, 5)}
+          </p>
+        </div>
+        <p className="info-text md:whitespace-nowrap md:overflow-hidden md:text-ellipsis">
+          {props.name}
         </p>
-      </div>
-      <p className="info-text md:whitespace-nowrap md:overflow-hidden md:text-ellipsis">
-        {props.name}
-      </p>
-      <p className="info-text">{props.bed} giường</p>
-      <p className="info-text">
-        {`${moment(searchParams.get("checkInDate")).format("DD/MM")} - ${moment(
-          searchParams.get("checkOutDate")
-        ).format("DD/MM")}`}
-      </p>
-      <p className="text-right">
-        <strong className="text-2xl">${props.price}</strong>/đêm
-      </p>
+        <p className="info-text">{props.bed} giường</p>
+        <p className="info-text">
+          {`${moment(searchParams.get("checkInDate")).format(
+            "DD/MM"
+          )} - ${moment(searchParams.get("checkOutDate")).format("DD/MM")}`}
+        </p>
+        <p className="text-right">
+          <strong className="text-2xl lg:text-xl">${props.price}</strong>/đêm
+        </p>
+      </NavLink>
     </div>
   );
 }

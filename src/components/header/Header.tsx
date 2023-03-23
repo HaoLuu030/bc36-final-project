@@ -5,12 +5,17 @@ import DropDownMenu from "../drop-down-menu/DropDownMenu";
 import SearchModule from "../search-module/SearchModule";
 import { useSearchParams } from "react-router-dom";
 import moment from "moment";
-
+import { useLocation } from "react-router-dom";
 function Header() {
+  const location = useLocation();
   const [isStartedSearch, setIsStartedSearch] = useState(false);
   const [searchParams] = useSearchParams();
   return (
-    <header className="sticky top-0 z-50 grid grid-cols-1 place-items-center sm:place-items-stretch sm:grid-cols-3 bg-white shadow-md p-5 md:px-10">
+    <header
+      className={`sticky top-0 z-50 grid grid-cols-1 place-items-center sm:place-items-stretch sm:grid-cols-3 bg-white shadow-md p-2 pt-4 md:px-10 ${
+        location.pathname.includes("/room-details") ? "hidden sm:grid" : ""
+      }`}
+    >
       {/* left */}
 
       <a
@@ -88,7 +93,7 @@ function Header() {
       {/* right */}
       <div className="hidden sm:flex items-center justify-end space-x-4 text-gray-500">
         <p className="hidden lg:inline cursor-pointer">Trở thành chủ nhà</p>
-        <GlobeAltIcon className="h-6 hidden md:block" />
+        <GlobeAltIcon className="h-6 hidden lg:block" />
         <DropDownMenu />
       </div>
       {/* search module */}

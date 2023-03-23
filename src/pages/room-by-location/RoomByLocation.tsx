@@ -9,43 +9,43 @@ import InfoCard from "./info-card/InfoCard";
 function RoomByLocation() {
   const [searchParams] = useSearchParams();
   const params = useParams();
-  const [locationList, setLocationList] = useState([]);
-  console.log(locationList);
+  const [roomList, setRoomList] = useState([]);
+
   const getRoomByLocation = async () => {
     const result = await fetchRoombyLocationApi(params.locationId);
-    setLocationList(result.data.content);
+    setRoomList(result.data.content);
   };
   useEffect(() => {
     getRoomByLocation();
   }, []);
+  useEffect(() => {
+    getRoomByLocation();
+  }, [params.locationId]);
   const renderLocationList = () => {
-    return locationList.map(
+    return roomList.map(
       (elem: {
         giaTien: number;
         giuong: number;
-        khach: number;
-        phongNgu: number;
-        phongTam: number;
         hinhAnh: string;
         tenPhong: string;
+        id: number;
       }) => {
+        console.log(elem);
         return (
           <InfoCard
             price={elem.giaTien}
             bed={elem.giuong}
-            living={elem.khach}
-            bedRoom={elem.phongNgu}
-            bathRoom={elem.phongTam}
             image={elem.hinhAnh}
             name={elem.tenPhong}
+            id={elem.id}
           />
         );
       }
     );
   };
   return (
-    <main className="pt-14 px-6 md:grid md:grid-cols-3">
-      <section className="col-span-2">
+    <main className="md:grid md:grid-cols-3">
+      <section className="col-span-2 pt-16 px-6">
         {/* extra info */}
         <p className="text-xs">
           Có {randomNumGenerator(1, 2000)} chỗ ở cho{" "}
@@ -70,7 +70,7 @@ function RoomByLocation() {
         </div>
         {/* body */}
         <div
-          className="grid grid-cols-1 sm:grid-cols-2
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
           space-y-4 sm:space-y-0 pb-4 gap-0"
         >
           {renderLocationList()}

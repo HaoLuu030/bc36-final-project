@@ -19,7 +19,7 @@ export default function SearchModule(props: Props) {
   const [checkInDate, setCheckInDate] = useState(today);
   const [checkOutDate, setCheckOutDate] = useState(today);
   const [numOfGuest, setNumOfGuest] = useState("1");
-  console.log({ checkInDate, checkOutDate });
+
   const navigate = useNavigate();
   //highlight the form item being chosen
   const handleClick = (e: any): void => {
@@ -49,7 +49,7 @@ export default function SearchModule(props: Props) {
       return locationInput === elem.tenViTri;
     });
     if (idx === -1) {
-      alert("Không tìm thấy vị trí");
+      alert("Không tìm thấy vị trí!");
       return;
     }
     if (!checkInDate) {
