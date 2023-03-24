@@ -16,4 +16,10 @@
   .info-text {
     @apply text-gray-400 text-lg lg:text-base;
   }
+  .border-bottom {
+    @apply py-4 border-b;
+  }
+  .modify-guest {
+    @apply bg-gray-300 w-10 h-10 rounded-2xl block;
+  }
 }
