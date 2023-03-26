@@ -8,7 +8,7 @@ interface Props {
 function Title(props: Props) {
   return (
     <div className="border-bottom">
-      <h1 className="text-2xl font-bold">{props.tenPhong}</h1>
+      <h1 className="text-2xl font-bold pb-4">{props.tenPhong}</h1>
       <div className="flex justify-between items-center">
         <div className="flex space-x-4 text-sm font-bold items-center">
           <p className="flex items-center">

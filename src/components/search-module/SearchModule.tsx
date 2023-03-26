@@ -5,6 +5,8 @@ import "./index.scss";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import LocationInput from "../location-input/LocationInput";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import { setSearchInfoAction } from "../../store/action/searchAction";
 
 interface Props {
   isStartedSearch: boolean;
@@ -12,6 +14,7 @@ interface Props {
 }
 
 export default function SearchModule(props: Props) {
+  const dispatch = useDispatch();
   const today = moment(new Date()).format("YYYY-MM-DD");
   const [isSearching, setIsSearching] = useState(false);
   const [locationInput, setLocationInput] = useState("");

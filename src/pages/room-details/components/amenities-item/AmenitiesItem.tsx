@@ -8,7 +8,7 @@ interface Props {
 function AmenitiesItem(props: Props) {
   const { show, imgString, amenText } = props;
   return show ? (
-    <li className="flex items-center space-x-4">
+    <li className="flex items-center space-x-4 w-full md:w-1/2">
       <svg
         viewBox="0 0 32 32"
         xmlns="http://www.w3.org/2000/svg"

@@ -12,25 +12,34 @@ import { ShareIcon, ChevronLeftIcon, HeartIcon } from "@heroicons/react/solid";
 import "swiper/css";
 import "swiper/css/pagination";
 import "./index.scss";
+import { useNavigate } from "react-router-dom";
 
-function RoomImage() {
+function RoomImageSmallScreen() {
+  const history = useNavigate();
   return (
     <div className="w-screen relative">
       <div className="flex justify-between absolute left-0 right-0 top-3 px-2 z-50">
-        <ChevronLeftIcon className="w-6 h-6 rounded-full bg-white p-0 cursor-pointer" />
+        <ChevronLeftIcon
+          onClick={() => {
+            history(-1);
+          }}
+          className="w-6 h-6 rounded-full bg-white p-0 cursor-pointer md:hidden"
+        />
         <div className="flex space-x-2">
-          <ShareIcon className="w-6 h-6 rounded-full bg-white p-1 cursor-pointer" />
-          <HeartIcon className="w-6 h-6 rounded-full bg-white p-1 cursor-pointer" />
+          <ShareIcon className="w-6 h-6 rounded-full bg-white p-1 cursor-pointer md:hidden" />
+          <HeartIcon className="w-6 h-6 rounded-full bg-white p-1 cursor-pointer md:hidden" />
         </div>
       </div>
+      {/* img small screen */}
       <LightGallery
         plugins={[lgZoom, lgThumbnail]}
         mode="lg-fade"
-        elementClassNames="img-gallery"
+        elementClassNames="img-gallery md:hidden"
       >
+        {/* image in small screen --start-- */}
         <a href="https://a0.muscache.com/im/pictures/372940fd-16f1-46bf-9ec0-f77c1f0bd160.jpg?im_w=720">
           <Swiper
-            className="flex items-center"
+            className="flex items-center md:hidden"
             slidesPerView={1}
             modules={[Pagination]}
             pagination={{
@@ -40,8 +49,7 @@ function RoomImage() {
             <SwiperSlide className="">
               <img
                 src="https://a0.muscache.com/im/pictures/372940fd-16f1-46bf-9ec0-f77c1f0bd160.jpg?im_w=720"
-                alt="img 1"
-                className=""
+                alt="main img"
               />
             </SwiperSlide>
             <SwiperSlide className="">
@@ -119,4 +127,4 @@ function RoomImage() {
   );
 }
 
-export default RoomImage;
+export default RoomImageSmallScreen;

@@ -17,8 +17,8 @@ function Amenities(props: Props) {
   const { room } = props;
   return (
     <div className="border-bottom">
-      <h2 className="text-xl font-bold pb-2">Nơi này có</h2>
-      <ul className="grid grid-cols-1 space-y-1">
+      <h2 className="detail-title">Nơi này có</h2>
+      <ul className="flex flex-wrap">
         <AmenitiesItem
           amenText="Nhà bếp"
           show={room?.bep}

@@ -12,8 +12,8 @@ function Header() {
   const [searchParams] = useSearchParams();
   return (
     <header
-      className={`sticky top-0 z-50 grid grid-cols-1 place-items-center sm:place-items-stretch sm:grid-cols-3 bg-white shadow-md p-2 pt-4 md:px-10 ${
-        location.pathname.includes("/room-details") ? "hidden sm:grid" : ""
+      className={`sticky top-0 z-50 bg-white shadow-md p-2 pt-4 md:px-10 flex flex-wrap justify-between ${
+        location.pathname.includes("/room-details") ? "hidden md:grid" : ""
       }`}
     >
       {/* left */}
@@ -48,7 +48,7 @@ function Header() {
           onClick={() => {
             setIsStartedSearch(false);
           }}
-          className="hidden sm:flex justify-around w-full items-center text-xs lg:text-base cursor-pointer"
+          className="hidden sm:flex justify-center items-center text-xs lg:text-base cursor-pointer space-x-2"
         >
           <p className="whitespace-nowrap text-ellipsis overflow-hidden">
             Chỗ ở

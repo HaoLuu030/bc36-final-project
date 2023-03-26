@@ -22,4 +22,8 @@
   .modify-guest {
     @apply bg-gray-300 w-10 h-10 rounded-2xl block;
   }
+  .detail-title {
+    @apply text-xl font-bold pb-2;
+  }
+
 }

@@ -30,7 +30,6 @@ function RoomByLocation() {
         tenPhong: string;
         id: number;
       }) => {
-        console.log(elem);
         return (
           <InfoCard
             price={elem.giaTien}

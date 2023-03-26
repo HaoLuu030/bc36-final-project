@@ -50,7 +50,11 @@ function Comment(props: Props) {
     });
   };
   return (
-    <div className="flex space-x-3 overflow-scroll scrollbar-hide py-10">
+    <div
+      className={`flex space-x-3 overflow-scroll scrollbar-hide py-10 ${
+        commentList.length === 0 ? "hidden" : ""
+      }`}
+    >
       {renderCommentList()}
     </div>
   );

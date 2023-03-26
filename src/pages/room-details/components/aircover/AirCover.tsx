@@ -3,7 +3,7 @@ import React from "react";
 function AirCover() {
   return (
     <div className="border-bottom">
-      <div className="w-full pr-40 py-4">
+      <div className="h-6 w-28 mb-4">
         <img
           className="w-full h-full"
           src="https://a0.muscache.com/im/pictures/54e427bb-9cb7-4a81-94cf-78f19156faad.jpg"

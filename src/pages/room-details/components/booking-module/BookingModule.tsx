@@ -54,7 +54,7 @@ function BookingModule(props: Props) {
     setIsChoosingDate(false);
   };
   return (
-    <div className="border-bottom p-4 relative">
+    <div className="border-bottom relative sm:w-2/3 sm:mx-auto md:w-full">
       <div className="border shadow-md rounded-md p-4 text-center">
         <div className="grid-cols-2 grid p-0 border rounded-md">
           <div
