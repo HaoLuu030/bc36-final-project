@@ -25,5 +25,19 @@
   .detail-title {
     @apply text-xl font-bold pb-2;
   }
-
+  .form-item-sign-up {
+    @apply flex flex-col mb-2;
+  }
+  .form-input-sign-up {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+  }
+  .form-label {
+    @apply text-black;
+  }
+  .sign-up-button {
+    @apply text-white focus:outline-none focus:ring-4  font-medium rounded-lg text-sm w-40 h-14 text-center mr-2 mb-2 bg-red-500 hover:bg-red-800 duration-300 active:scale-90 ease-out;
+  }
+  .switch-button {
+    @apply text-rose-700 hover:text-rose-500 hover:underline underline-offset-4 tracking-wider duration-200;
+  }
 }

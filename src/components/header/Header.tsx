@@ -1,24 +1,25 @@
 import { SearchIcon, GlobeAltIcon } from "@heroicons/react/solid";
 import { Fragment, ReactElement, useState } from "react";
 import DropDownMenu from "../drop-down-menu/DropDownMenu";
+import React from "react";
 
 import SearchModule from "../search-module/SearchModule";
 import { useSearchParams } from "react-router-dom";
 import moment from "moment";
 import { useLocation } from "react-router-dom";
-import { JsxElement } from "typescript";
+
 function Header() {
   const location = useLocation();
   const [isStartedSearch, setIsStartedSearch] = useState(false);
   const [searchParams] = useSearchParams();
   const searchBarContent = (): ReactElement => {
-    if (location.pathname === "home") {
+    if (location.pathname.includes("home")) {
       return (
-        <Fragment>
+        <React.Fragment>
           <p className="search-info border-r pr-2">Địa điểm bất kỳ</p>
           <p className="search-info border-r ml-2 pr-2">Tuần bất kỳ</p>
           <p className="search-info ml-2">Thêm khách</p>
-        </Fragment>
+        </React.Fragment>
       );
     }
     if (location.pathname.includes("/room-by-location")) {

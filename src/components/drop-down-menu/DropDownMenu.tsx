@@ -1,8 +1,14 @@
 import { MenuIcon, UserCircleIcon } from "@heroicons/react/solid";
 import MenuItem from "../menu-item/MenuItem";
 import { useEffect, useRef, useState } from "react";
-
+import { useSelector } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { deleteUserInfoAction } from "../../store/action/userActions";
 function DropDownMenu() {
+  const dispatch = useDispatch();
+  const userState = useSelector((state: any) => state.userReducer);
+  console.log(userState);
   const [showMenu, setShowMenu] = useState(false);
   const handleShowMenu = () => {
     setShowMenu((show) => !show);
@@ -16,6 +22,11 @@ function DropDownMenu() {
     };
     document.addEventListener("mousedown", eventHandler);
   }, []);
+  const handleLogOut = () => {
+    localStorage.removeItem("USER_INFO_KEY");
+    dispatch(deleteUserInfoAction());
+    alert("Đã đăng xuất");
+  };
   return (
     <div className="menu-container relative" ref={menuRef}>
       <button
@@ -31,15 +42,79 @@ function DropDownMenu() {
         }`}
       >
         <ul className="w-full text-sm text-black">
-          <div className="drop-down-menu-top border-b-gray-300 border-b-2 w-full flex flex-col">
-            <MenuItem link="/sign-up" text="Đăng ký" rounded="rounded-t-md" />
-            <MenuItem link="/log-in" text="Đăng nhập" rounded="" />
+          <div className="drop-down-menu-top border-b-gray-300 border-b w-full flex flex-col">
+            {userState?.userInfo ? (
+              <React.Fragment>
+                <MenuItem
+                  link="/account"
+                  text="Tài khoản"
+                  rounded="rounded-t-md"
+                  function={undefined}
+                />
+                <MenuItem
+                  link="#"
+                  text="Tin nhắn"
+                  rounded=""
+                  function={undefined}
+                />
+                <MenuItem
+                  link="#"
+                  text="Phòng muốn thuê"
+                  rounded=""
+                  function={undefined}
+                />
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <MenuItem
+                  link="/sign-up"
+                  text="Đăng ký"
+                  rounded="rounded-t-md"
+                  function={undefined}
+                />
+                <MenuItem
+                  link="/log-in"
+                  text="Đăng nhập"
+                  rounded=""
+                  function={undefined}
+                />
+              </React.Fragment>
+            )}
           </div>
-          <div className="drop-down-menu-bottom">
-            <MenuItem link="/" text="Cho thuê nhà" rounded="" />
-            <MenuItem link="/" text="Tổ chức trải nghiệm" rounded="" />
-            <MenuItem link="/" text="Trợ giúp" rounded="rounded-b-md" />
+          <div
+            className={`drop-down-menu-bottom ${
+              userState.userInfo ? "border-b" : ""
+            }`}
+          >
+            <MenuItem
+              link="/"
+              text="Cho thuê nhà"
+              rounded=""
+              function={undefined}
+            />
+            <MenuItem
+              link="/"
+              text="Tổ chức trải nghiệm"
+              rounded=""
+              function={undefined}
+            />
+            <MenuItem
+              link="/"
+              text="Trợ giúp"
+              rounded={`${userState.userInfo ? "" : "rounded-b-md"}`}
+              function={undefined}
+            />
           </div>
+          {userState.userInfo ? (
+            <MenuItem
+              link="/log-in"
+              text="Đăng xuất"
+              rounded="rounded-b-md"
+              function={handleLogOut}
+            />
+          ) : (
+            ""
+          )}
         </ul>
       </div>
     </div>
