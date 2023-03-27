@@ -1,23 +1,26 @@
-import { AnySoaRecord } from "dns";
 import { SET_SEARCH_INFO } from "../types/searchTypes";
+import moment from "moment";
 
 const DEFAULT_STATE = {
   searchInfo: {
     location: "",
     checkInDate: new Date(),
-    checkIOutDate: new Date(),
-    numOfGuest: 0,
+    checkOutDate: new Date(),
+    numOfGuest: 1,
   },
 };
 
 export const searchReducer = (
   state = DEFAULT_STATE,
-  action: { type: string; payload: AnySoaRecord }
+  action: {
+    type: string;
+    payload: any;
+  }
 ) => {
   const { type, payload } = action;
   switch (type) {
     case SET_SEARCH_INFO:
-      console.log(payload);
+      state.searchInfo = payload;
       break;
 
     default:

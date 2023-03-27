@@ -32,6 +32,7 @@ function RoomByLocation() {
       }) => {
         return (
           <InfoCard
+            key={elem.id}
             price={elem.giaTien}
             bed={elem.giuong}
             image={elem.hinhAnh}

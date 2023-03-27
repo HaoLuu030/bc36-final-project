@@ -32,8 +32,8 @@ function DropDownMenu() {
       >
         <ul className="w-full text-sm text-black">
           <div className="drop-down-menu-top border-b-gray-300 border-b-2 w-full flex flex-col">
-            <MenuItem link="/login" text="Đăng ký" rounded="rounded-t-md" />
-            <MenuItem link="/sign-up" text="Đăng nhập" rounded="" />
+            <MenuItem link="/sign-up" text="Đăng ký" rounded="rounded-t-md" />
+            <MenuItem link="/log-in" text="Đăng nhập" rounded="" />
           </div>
           <div className="drop-down-menu-bottom">
             <MenuItem link="/" text="Cho thuê nhà" rounded="" />

@@ -3,12 +3,15 @@ import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange, RangeKeyDict } from "react-date-range";
 import moment from "moment";
+import { useSelector } from "react-redux";
 
 interface Props {
   giaTien: number | undefined;
 }
 
 function BookingModule(props: Props) {
+  const searchState = useSelector((state: any) => state.searchReducer);
+
   const dateRangeRef = useRef<any>();
   const [startDate, setStartDate] = useState<Date | undefined>(new Date());
   const [endDate, setEndDate] = useState<Date | undefined>(new Date());
@@ -53,6 +56,11 @@ function BookingModule(props: Props) {
   const handleCloseCalendar = () => {
     setIsChoosingDate(false);
   };
+  useEffect(() => {
+    setStartDate(searchState.searchInfo.checkInDate);
+    setEndDate(searchState.searchInfo.checkOutDate);
+    setGuestNum(searchState.searchInfo.numOfGuest);
+  }, []);
   return (
     <div className="border-bottom relative sm:w-2/3 sm:mx-auto md:w-full">
       <div className="border shadow-md rounded-md p-4 text-center">

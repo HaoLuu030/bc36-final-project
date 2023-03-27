@@ -10,7 +10,12 @@ function MenuItem(props: Props) {
     <li
       className={`p-2 cursor-pointer hover:bg-gray-100 flex-grow ${props.rounded}`}
     >
-      <NavLink className="w-full h-full block" to={props.link}>
+      <NavLink
+        className={`w-full h-full block ${
+          props.text.toLowerCase() === "đăng ký" ? "font-bold" : ""
+        }`}
+        to={props.link}
+      >
         {props.text}
       </NavLink>
     </li>

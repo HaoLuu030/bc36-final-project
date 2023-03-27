@@ -39,6 +39,7 @@ function LocationInput(props: Props) {
       .map((elem: { tenViTri: string; id: number; tinhThanh: string }) => {
         return (
           <div
+            key={elem.id}
             onClick={() => {
               handleSelectLocation(elem.tenViTri);
             }}

@@ -11,6 +11,8 @@ import "swiper/css/pagination";
 import { randomNumGenerator } from "../../../utils";
 import moment from "moment";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSearchInfoAction } from "../../../store/action/searchActions";
 interface Props {
   price: number;
   bed: number;
@@ -19,7 +21,22 @@ interface Props {
   id: number;
 }
 function InfoCard(props: Props) {
+  const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
+  const handleClick = () => {
+    dispatch(
+      setSearchInfoAction({
+        location: searchParams.get("location"),
+        checkInDate: new Date(
+          moment(searchParams.get("checkInDate")).format("YYYY-MM-DD")
+        ),
+        checkOutDate: new Date(
+          moment(searchParams.get("checkOutDate")).format("YYYY-MM-DD")
+        ),
+        numOfGuest: parseInt(searchParams.get("numOfGuest") || "1"),
+      })
+    );
+  };
   return (
     <div className="info-card w-11/12">
       <Swiper
@@ -70,6 +87,7 @@ function InfoCard(props: Props) {
       </Swiper>
 
       <NavLink
+        onClick={handleClick}
         to={`/room-details/${props.id}`}
         className="card-body cursor-pointer hover:shadow-md transition duration-150 ease-out px-4 pb-2 rounded-md active:scale-90 block"
       >
