@@ -12,8 +12,8 @@ interface Props {
 
 function Overview(props: Props) {
   return (
-    <div className="md:flex items-center space-x-2">
-      <div className="border-bottom">
+    <div className="md:flex items-center space-x-2 border-bottom w-full justify-between">
+      <div>
         <div className="flex items-center justify-between ">
           <p className="text-2xl">
             Toàn bộ căn hộ <br className="md:hidden" /> của chủ nhà SungWon

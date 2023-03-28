@@ -1,81 +1,102 @@
-import React from "react";
+import React, { useState } from "react";
+import FormInput from "./components/form-input/FormInput";
 
 function SignUp() {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+  const [values, setValues] = useState({
+    userName: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+    address: "",
+    dob: "",
+    gender: "",
+  });
+  const inputs = [
+    {
+      id: 1,
+      name: "username",
+      type: "text",
+      placeholder: "Trần Văn A",
+      label: "Tên người dùng",
+    },
+    {
+      id: 2,
+      name: "email",
+      type: "email",
+      placeholder: "TranVanA@gmail.com",
+      label: "Email",
+    },
+    {
+      id: 3,
+      name: "phone",
+      type: "tel",
+      placeholder: "0908765478",
+      label: "Điện thoại",
+    },
+    {
+      id: 4,
+      name: "password",
+      type: "password",
+      placeholder: "TranVanA678123",
+      label: "Mật khẩu",
+    },
+    {
+      id: 5,
+      name: "confirmPassword",
+      type: "password",
+      placeholder: "TranVanA678123",
+      label: "Xác nhận mật khẩu",
+    },
+    {
+      id: 6,
+      name: "address",
+      type: "text",
+      placeholder: "123 đường A phường B quận C thành phố D",
+      label: "Địa chỉ",
+    },
+    {
+      id: 7,
+      name: "dob",
+      type: "date",
+      label: "Ngày sinh",
+    },
+  ];
+  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
+    setValues({...values, [event.target.name]: event.target.value})
+  }
   return (
-    <form className="pt-2 grid grid-cols-1 md:grid-cols-2 md:gap-4">
-      <div className="form-item-sign-up">
-        <label htmlFor="name" className="form-label">
-          Tên người dùng
-        </label>
-        <input
-          type="text"
-          className="form-input-sign-up"
-          id="name"
-          placeholder="Trần Văn A"
-        />
-      </div>
-      <div className="form-item-sign-up">
-        <label htmlFor="email" className="form-label">
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          className="form-input-sign-up"
-          placeholder="TranVanA@email.com"
-        />
-      </div>
-      <div className="form-item-sign-up">
-        <label htmlFor="phone" className="form-label">
-          Số điện thoại
-        </label>
-        <input
-          type="tel"
-          className="form-input-sign-up"
-          id="phone"
-          placeholder="0908876432"
-        />
-      </div>
-      <div className="form-item-sign-up">
-        <label htmlFor="password" className="form-label">
-          Mật khẩu
-        </label>
-        <input
-          type="password"
-          id="password"
-          className="form-input-sign-up"
-          placeholder="Chứa ít nhất 8 ký tự"
-        />
-      </div>
-      <div className="form-item-sign-up">
-        {" "}
-        <label htmlFor="address" className="form-label">
-          Địa chỉ
-        </label>
-        <input
-          type="text"
-          className="form-input-sign-up"
-          id="address"
-          placeholder="12/3/4 đường A phường B quận C, thành phố D"
-        />
-      </div>
-      <div className="form-item-sign-up">
-        <label htmlFor="dob" className="form-label">
-          Ngày sinh
-        </label>
-        <input type="date" className="form-input-sign-up" id="dob" />
-      </div>
+    <form
+      onSubmit={handleSubmit}
+      className="pt-2 grid grid-cols-1 md:grid-cols-2 md:gap-4"
+    >
+      {inputs.map(
+        (elem: {
+          placeholder?: string;
+          id: number;
+          name: string;
+          type: string;
+          label: string;
+        }) => {
+          return <FormInput onChange={handleChange} key={elem.id} {...elem} />;
+        }
+      )}
       <div className="form-item-sign-up">
         <label htmlFor="gender" className="form-label">
           Giới tính
         </label>
-        <select className="form-input-sign-up">
+        <select id="gender" className="form-input-sign-up">
           <option value={1}>Nam</option>
           <option value={0}>Nữ</option>
         </select>
       </div>
       <div className="w-full flex justify-center mt-4">
-        <button className="sign-up-button">Đăng ký</button>
+        <button type="submit" className="sign-up-button">
+          Đăng ký
+        </button>
       </div>
     </form>
   );

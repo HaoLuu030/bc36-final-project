@@ -4,14 +4,17 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange, RangeKeyDict } from "react-date-range";
 import moment from "moment";
 import { useSelector } from "react-redux";
-
+import { useNavigate, useParams } from "react-router-dom";
+import { bookingApi } from "../../../../services/booking";
 interface Props {
   giaTien: number | undefined;
 }
 
 function BookingModule(props: Props) {
   const searchState = useSelector((state: any) => state.searchReducer);
-
+  const userState = useSelector((state: any) => state.userReducer);
+  const navigate = useNavigate();
+  const params = useParams();
   const dateRangeRef = useRef<any>();
   const [startDate, setStartDate] = useState<Date | undefined>(new Date());
   const [endDate, setEndDate] = useState<Date | undefined>(new Date());
@@ -61,6 +64,25 @@ function BookingModule(props: Props) {
     setEndDate(searchState.searchInfo.checkOutDate);
     setGuestNum(searchState.searchInfo.numOfGuest);
   }, []);
+  const handleBooking = async () => {
+    if (!userState.userInfo) {
+      alert("Vui lòng đăng nhập để đặt phòng");
+      navigate("/log-in");
+      return;
+    }
+    try {
+      const result = bookingApi({
+        maPhong: parseInt(params.roomId || "0"),
+        ngayDen: moment(startDate).format("YYYY/MM/DD"),
+        ngayDi: moment(endDate).format("YYYY/MM/DD"),
+        maNguoiDung: userState.userInfo.maNguoiDung,
+        soLuongKhach: guestNum,
+      });
+      alert("Đăt phòng thành công!");
+    } catch (error: any) {
+      alert(error.response.data.content);
+    }
+  };
   return (
     <div className="border-bottom relative sm:w-2/3 sm:mx-auto md:w-full">
       <div className="border shadow-md rounded-md p-4 text-center">
@@ -107,6 +129,7 @@ function BookingModule(props: Props) {
           </div>
         </div>
         <button
+          onClick={handleBooking}
           className="w-full h-14 rounded-lg mt-4 text-white font-bold active:scale-90 transition duration-150 ease-out"
           style={{
             background:

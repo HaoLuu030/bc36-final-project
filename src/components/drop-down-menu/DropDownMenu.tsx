@@ -8,7 +8,6 @@ import { deleteUserInfoAction } from "../../store/action/userActions";
 function DropDownMenu() {
   const dispatch = useDispatch();
   const userState = useSelector((state: any) => state.userReducer);
-  console.log(userState);
   const [showMenu, setShowMenu] = useState(false);
   const handleShowMenu = () => {
     setShowMenu((show) => !show);
@@ -48,19 +47,19 @@ function DropDownMenu() {
                 <MenuItem
                   link="/account"
                   text="Tài khoản"
-                  rounded="rounded-t-md"
+                  customStyle="rounded-t-md font-bold"
                   function={undefined}
                 />
                 <MenuItem
-                  link="#"
-                  text="Tin nhắn"
-                  rounded=""
+                  link="/rented-room"
+                  text="Phòng đã thuê"
+                  customStyle="font-bold"
                   function={undefined}
                 />
                 <MenuItem
                   link="#"
                   text="Phòng muốn thuê"
-                  rounded=""
+                  customStyle="font-bold"
                   function={undefined}
                 />
               </React.Fragment>
@@ -69,13 +68,13 @@ function DropDownMenu() {
                 <MenuItem
                   link="/sign-up"
                   text="Đăng ký"
-                  rounded="rounded-t-md"
+                  customStyle="rounded-t-md"
                   function={undefined}
                 />
                 <MenuItem
                   link="/log-in"
                   text="Đăng nhập"
-                  rounded=""
+                  customStyle="font-bold"
                   function={undefined}
                 />
               </React.Fragment>
@@ -89,19 +88,19 @@ function DropDownMenu() {
             <MenuItem
               link="/"
               text="Cho thuê nhà"
-              rounded=""
+              customStyle=""
               function={undefined}
             />
             <MenuItem
               link="/"
               text="Tổ chức trải nghiệm"
-              rounded=""
+              customStyle=""
               function={undefined}
             />
             <MenuItem
               link="/"
               text="Trợ giúp"
-              rounded={`${userState.userInfo ? "" : "rounded-b-md"}`}
+              customStyle={`${userState.userInfo ? "" : "rounded-b-md"}`}
               function={undefined}
             />
           </div>
@@ -109,7 +108,7 @@ function DropDownMenu() {
             <MenuItem
               link="/log-in"
               text="Đăng xuất"
-              rounded="rounded-b-md"
+              customStyle="rounded-b-md"
               function={handleLogOut}
             />
           ) : (
