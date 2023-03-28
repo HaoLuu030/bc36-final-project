@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import FormInput from "./components/form-input/FormInput";
 
 function SignUp() {
@@ -18,7 +18,7 @@ function SignUp() {
   const inputs = [
     {
       id: 1,
-      name: "username",
+      name: "userName",
       type: "text",
       placeholder: "Trần Văn A",
       label: "Tên người dùng",
@@ -65,9 +65,18 @@ function SignUp() {
       label: "Ngày sinh",
     },
   ];
-  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    setValues({...values, [event.target.name]: event.target.value})
-  }
+  const handleChange = (
+    event: React.FormEvent<HTMLInputElement> | FormEvent<HTMLSelectElement>
+  ) => {
+    console.log((event.target as HTMLInputElement).value);
+
+    setValues({
+      ...values,
+      [(event.target as HTMLInputElement | HTMLSelectElement).value]: [
+        (event.target as HTMLInputElement | HTMLSelectElement).value,
+      ],
+    });
+  };
   return (
     <form
       onSubmit={handleSubmit}
@@ -81,14 +90,25 @@ function SignUp() {
           type: string;
           label: string;
         }) => {
-          return <FormInput onChange={handleChange} key={elem.id} {...elem} />;
+          return (
+            <FormInput
+              handleChange={handleChange}
+              key={elem.id}
+              {...elem}
+              value={values[elem.name as keyof typeof values]}
+            />
+          );
         }
       )}
       <div className="form-item-sign-up">
         <label htmlFor="gender" className="form-label">
           Giới tính
         </label>
-        <select id="gender" className="form-input-sign-up">
+        <select
+          onChange={handleChange}
+          id="gender"
+          className="form-input-sign-up"
+        >
           <option value={1}>Nam</option>
           <option value={0}>Nữ</option>
         </select>
