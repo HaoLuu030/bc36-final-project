@@ -1,0 +1,11 @@
+.form-item-sign-up {
+  span {
+    display: none;
+  }
+  input:invalid[data-focus="true"] {
+    border: solid 1px rgb(239 68 68);
+  }
+  input:invalid[data-focus="true"] ~ span {
+    display: block;
+  }
+}

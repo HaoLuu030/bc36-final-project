@@ -11,7 +11,7 @@ function SignUpAndLogIn() {
   const location = useLocation();
   return (
     <div
-      className="w-screen h-screen relative"
+      className="w-screen min-h-screen flex items-center"
       style={{
         backgroundImage:
           "url('https://demo4.cybersoft.edu.vn/static/media/logo_login.a444f2681cc7b623ead2.jpg')",
@@ -20,13 +20,11 @@ function SignUpAndLogIn() {
         backgroundSize: "cover",
       }}
     >
-      <div className="w-full p-5">
-        <div className="min-w-[300px] max-w-[450px] h-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white z-0 p-5">
-          <Title />
-          {useConfirmSignUp() ? <SignUp /> : <LogIn />}
+      <div className="min-w-[300px] max-w-[450px] h-auto rounded-lg bg-white z-0 p-5 mx-auto">
+        <Title />
+        {useConfirmSignUp() ? <SignUp /> : <LogIn />}
 
-          <SwitchButton />
-        </div>
+        <SwitchButton />
       </div>
     </div>
   );

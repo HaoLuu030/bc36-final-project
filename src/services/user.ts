@@ -10,5 +10,19 @@ const logInApi = (userInfo: {
     data: userInfo,
   });
 };
+const signUpApi = (userInfo: {
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+  birthday: string;
+  gender: boolean;
+}) => {
+  return axiosRequest({
+    url: "/auth/signup",
+    method: "POST",
+    data: userInfo,
+  });
+};
 
-export { logInApi };
+export { logInApi, signUpApi };
