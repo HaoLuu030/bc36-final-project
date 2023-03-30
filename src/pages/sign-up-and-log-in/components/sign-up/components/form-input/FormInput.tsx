@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./index.scss";
+
 interface Props {
   name: string;
   type: string;
@@ -7,15 +7,27 @@ interface Props {
   label: string;
   handleChange: (event: React.FormEvent<HTMLInputElement>) => void;
   value: string | number;
-  errorMessage?: string;
+  patternErrorMessage?: string;
   pattern?: string;
-  // required?: boolean
+  required?: boolean;
 }
 function FormInput(props: Props) {
-  const [focused, setFocused] = useState(false);
-  const { label, errorMessage, handleChange, name, ...inputProps } = props;
-  const handleBlur = () => {
-    setFocused(true);
+  const [errorMessage, setErrorMessage] = useState("");
+  const { label, handleChange, name, patternErrorMessage, ...inputProps } =
+    props;
+  const handleBlur = (event: React.FormEvent<HTMLInputElement>) => {
+    let message = "";
+    const { validity } = event.target as HTMLInputElement;
+    const { valueMissing, patternMismatch } = validity;
+
+    if (valueMissing) {
+      message = "Trường này không được bỏ trống";
+    }
+    if (patternMismatch && patternErrorMessage) {
+      message = patternErrorMessage;
+    }
+    console.log(patternMismatch);
+    setErrorMessage(message);
   };
 
   return (
@@ -24,16 +36,13 @@ function FormInput(props: Props) {
         {label}
       </label>
       <input
+        title={label}
         name={props.name}
         {...inputProps}
         onChange={handleChange}
         className="form-input-sign-up"
         id={props.name}
         onBlur={handleBlur}
-        data-focus={focused.toString()}
-        onFocus={() => {
-          name === "confirmPassword" && setFocused(true);
-        }}
       />
       <span className="text-red-500">{errorMessage}</span>
     </div>

@@ -1,10 +1,10 @@
 import React, { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { signUpApi } from "../../../../services/user";
 import FormInput from "./components/form-input/FormInput";
 
 function SignUp() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     userName: "",
     email: "",
@@ -15,6 +15,29 @@ function SignUp() {
     dob: "",
     gender: "",
   });
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const isValid = (event.target as HTMLFormElement).checkValidity();
+
+    if (!isValid) {
+      return;
+    }
+    try {
+      await signUpApi({
+        name: values.userName,
+        email: values.email,
+        password: values.password,
+        phone: values.phone,
+        birthday: values.dob,
+        gender: Boolean(values.gender),
+      });
+      alert("Đăng ký thành công!");
+      navigate("/log-in");
+    } catch (error: any) {
+      alert(error.response.data.content);
+    }
+  };
+
   const inputs = [
     {
       id: 1,
@@ -25,7 +48,7 @@ function SignUp() {
         "Tên người dùng phải từ 3-16 ký tự, và không được chứa ký tữ đặc biệt",
       label: "Tên người dùng",
       pattern: "^[a-zA-Z0-9]{3,16}$",
-      // required: true,
+      required: true,
     },
     {
       id: 2,
@@ -34,8 +57,8 @@ function SignUp() {
       placeholder: "TranVanA@gmail.com",
       errorMessage: "Email không đúng định dạng",
       label: "Email",
-      pattern: `^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$",
-      label: "Email`,
+      pattern: "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$",
+      required: true,
     },
     {
       id: 3,
@@ -45,6 +68,7 @@ function SignUp() {
       errorMessage: "Số điện thoại không đúng định dạng",
       label: "Điện thoại",
       pattern: "(84|0[3|5|7|8|9])+([0-9]{8})",
+      required: true,
     },
     {
       id: 4,
@@ -52,26 +76,29 @@ function SignUp() {
       type: "text",
       placeholder: "123 đường A phường B quận C thành phố D",
       label: "Địa chỉ",
+      required: true,
     },
     {
       id: 5,
       name: "password",
-      type: "password",
+      type: "text",
       placeholder: "TranVanA678123@",
       errorMessage:
         "Mật khẩu phải từ 8-20 ký tự vá phải chứa ít nhất 1 chữ cái, 1 chữ số và 1 ký tự đặc biệt",
       label: "Mật khẩu",
       pattern:
         "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$",
+      required: true,
     },
     {
       id: 6,
       name: "confirmPassword",
-      type: "password",
+      type: "text",
       placeholder: "TranVanA678123@",
       errorMessage: "Mật khẩu không khớp",
       label: "Xác nhận mật khẩu",
-      pattern: values.password,
+      pattern: `^${values.password}$`,
+      required: true,
     },
 
     {
@@ -84,15 +111,17 @@ function SignUp() {
   const handleChange = (
     event: React.FormEvent<HTMLInputElement> | FormEvent<HTMLSelectElement>
   ) => {
+    const { name, value } = event.target as
+      | HTMLInputElement
+      | HTMLSelectElement;
     setValues({
       ...values,
-      [(event.target as HTMLInputElement | HTMLSelectElement).name]: [
-        (event.target as HTMLInputElement | HTMLSelectElement).value,
-      ],
+      [name]: value,
     });
   };
   return (
     <form
+      noValidate
       onSubmit={handleSubmit}
       className="pt-2 grid grid-cols-1 md:grid-cols-2 md:gap-2"
     >
@@ -105,6 +134,7 @@ function SignUp() {
           label: string;
           errorMessage?: string;
           pattern?: string;
+          required?: boolean;
         }) => {
           return (
             <FormInput
@@ -112,8 +142,9 @@ function SignUp() {
               key={elem.id}
               {...elem}
               value={values[elem.name as keyof typeof values]}
-              errorMessage={elem.errorMessage}
+              patternErrorMessage={elem.errorMessage}
               pattern={elem.pattern}
+              required={elem.required}
             />
           );
         }
