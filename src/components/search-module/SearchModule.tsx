@@ -6,7 +6,6 @@ import { useNavigate, createSearchParams } from "react-router-dom";
 import LocationInput from "../location-input/LocationInput";
 import moment from "moment";
 
-
 interface Props {
   isStartedSearch: boolean;
   setIsStartedSearch: (type: boolean) => void;

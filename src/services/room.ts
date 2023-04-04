@@ -9,7 +9,14 @@ export const fetchRoombyLocationApi = (locationId: string | undefined) => {
 
 export const fetchRoomById = (roomId: string | undefined) => {
   return axiosRequest({
-    url: `phong-thue/${roomId}`,
+    url: `/phong-thue/${roomId}`,
+    method: "GET",
+  });
+};
+
+export const fetchAllRooms = () => {
+  return axiosRequest({
+    url: "/phong-thue",
     method: "GET",
   });
 };

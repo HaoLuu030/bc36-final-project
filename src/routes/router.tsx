@@ -10,6 +10,7 @@ import RoomDetails from "../pages/room-details/RoomDetails";
 
 import SignUpAndLogIn from "../pages/sign-up-and-log-in/SignUpAndLogIn";
 import UserInfo from "../pages/user-info/UserInfo";
+import RentedRoom from "../pages/rented-room/RentedRoom";
 
 export default function Router() {
   const routing = useRoutes([
@@ -40,6 +41,16 @@ export default function Router() {
             {
               path: "/user-info",
               element: <UserInfo />,
+            },
+          ],
+        },
+        {
+          path: "/rented-room",
+          element: <AuthGuard />,
+          children: [
+            {
+              path: "/rented-room",
+              element: <RentedRoom />,
             },
           ],
         },

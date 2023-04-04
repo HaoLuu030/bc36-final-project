@@ -13,5 +13,10 @@ const bookingApi = (bookingInfo: {
     data: bookingInfo,
   });
 };
-
-export { bookingApi };
+const bookingByUserApi = (id: number) => {
+  return axiosRequest({
+    url: `dat-phong/lay-theo-nguoi-dung/${id}`,
+    method: "GET",
+  });
+};
+export { bookingApi, bookingByUserApi };

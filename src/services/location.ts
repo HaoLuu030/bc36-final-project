@@ -14,3 +14,9 @@ export const fetchLocationByPageApi = () => {
   });
 };
 
+export const fetchLocationById = (id: number) => {
+  return axiosRequest({
+    url: `/vi-tri/${id}`,
+    method: "GET",
+  });
+};

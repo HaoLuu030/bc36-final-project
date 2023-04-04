@@ -17,9 +17,9 @@ function Header() {
     if (location.pathname.includes("home")) {
       return (
         <React.Fragment>
-          <p className="search-info border-r pr-2">Địa điểm bất kỳ</p>
-          <p className="search-info border-r ml-2 pr-2">Tuần bất kỳ</p>
-          <p className="search-info ml-2">Thêm khách</p>
+          <p className="search-info border-r pr-2 text-xs">Địa điểm bất kỳ</p>
+          <p className="search-info border-r ml-2 pr-2 text-xs">Tuần bất kỳ</p>
+          <p className="search-info ml-2 text-xs">Thêm khách</p>
         </React.Fragment>
       );
     }
@@ -43,15 +43,20 @@ function Header() {
   };
   return (
     <header
-      className={`sticky top-0 z-50 bg-white shadow-md p-2 pt-4 md:px-10 flex-wrap justify-between ${
+      className={`sticky top-0 z-50 bg-white shadow-md px-1 py-2 sm:p-2 pt-4 md:px-10 flex-wrap justify-between ${
         location.pathname.includes("/room-details") ? "hidden md:grid" : ""
-      } ${location.pathname !== "/user-info" ? "flex" : "hidden md:flex"}`}
+      } ${
+        location.pathname !== "/user-info" &&
+        location.pathname !== "/rented-room"
+          ? "flex"
+          : "hidden md:flex"
+      }`}
     >
       {/* left */}
 
       <AirBnbIcon />
 
-      {/* middle - search*/}
+      {/* middle - search -- start */}
 
       {/* search button */}
       {isStartedSearch ? (
@@ -77,15 +82,19 @@ function Header() {
             setIsStartedSearch(!isStartedSearch);
           }}
           className={`items-center border-2 rounded-full py-2 md:shadow-sm justify-between search-button min-w-fit max-w-md cursor-pointer mx-auto ${
-            location.pathname !== "/user-info" ? "flex" : "hidden"
+            location.pathname !== "/user-info" &&
+            location.pathname !== "/rented-room"
+              ? "flex"
+              : "hidden"
           }`}
         >
-          <div className="flex justify-center flex-grow px-4">
+          <div className="flex justify-center flex-grow pl-2 sm:px-4">
             {searchBarContent()}
           </div>
           <SearchIcon className="inline-flex h-8 w-8 bg-red-400 text-white rounded-full p-2 cursor-pointer mx-2" />
         </div>
       )}
+      {/* middle - search -- end */}
       {/* right */}
       <div className="hidden sm:flex items-center justify-end space-x-4 text-gray-500">
         <p className="hidden lg:inline cursor-pointer">Trở thành chủ nhà</p>
