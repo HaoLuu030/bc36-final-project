@@ -25,4 +25,20 @@ const signUpApi = (userInfo: {
   });
 };
 
-export { logInApi, signUpApi };
+const editUserApi = (userInfo: {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  birthday: string;
+  gender: boolean;
+  role: string;
+}) => {
+  return axiosRequest({
+    url: `/users/${userInfo.id}`,
+    method: "PUT",
+    data: userInfo,
+  });
+};
+
+export { logInApi, signUpApi, editUserApi };

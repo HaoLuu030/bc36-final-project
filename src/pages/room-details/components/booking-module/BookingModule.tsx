@@ -71,11 +71,18 @@ function BookingModule(props: Props) {
       return;
     }
     try {
-      const result = bookingApi({
+      console.log({
         maPhong: parseInt(params.roomId || "0"),
         ngayDen: moment(startDate).format("YYYY/MM/DD"),
         ngayDi: moment(endDate).format("YYYY/MM/DD"),
-        maNguoiDung: userState.userInfo.maNguoiDung,
+        maNguoiDung: userState.userInfo.id,
+        soLuongKhach: guestNum,
+      });
+      await bookingApi({
+        maPhong: parseInt(params.roomId || "0"),
+        ngayDen: moment(startDate).format("YYYY/MM/DD"),
+        ngayDi: moment(endDate).format("YYYY/MM/DD"),
+        maNguoiDung: userState.userInfo.id,
         soLuongKhach: guestNum,
       });
       alert("Đăt phòng thành công!");

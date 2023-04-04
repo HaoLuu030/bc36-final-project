@@ -11,7 +11,7 @@ function SignUpAndLogIn() {
   const location = useLocation();
   return (
     <div
-      className="w-screen min-h-screen flex items-center"
+      className="max-w-screen min-h-screen flex items-center"
       style={{
         backgroundImage:
           "url('https://demo4.cybersoft.edu.vn/static/media/logo_login.a444f2681cc7b623ead2.jpg')",

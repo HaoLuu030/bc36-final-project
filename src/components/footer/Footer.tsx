@@ -1,8 +1,14 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 function Footer() {
+  const location = useLocation();
   return (
-    <footer className="grid grid-cols-2 p-10 md:grid-cols-4 gap-y-10 md:px-32 md:py-14 bg-gray-100">
+    <footer
+      className={`grid-cols-2 p-10 md:grid-cols-4 gap-y-10 md:px-32 md:py-14 bg-gray-100 ${
+        location.pathname !== "/user-info" ? "grid" : "hidden md:grid"
+      }`}
+    >
       <div className="space-y-4 text-gray-800 text-xs">
         <h5 className="font-bold">Giới thiệu</h5>
         <p>Phương thức hoạt động</p>

@@ -40,4 +40,16 @@
   .switch-button {
     @apply text-rose-700 hover:text-rose-500 hover:underline underline-offset-4 tracking-wider duration-200;
   }
+  .title-user-info {
+    @apply text-xl;
+  }
+  .disabled {
+    @apply cursor-not-allowed pointer-events-none opacity-30;
+  }
+  .title-extra-info {
+    @apply text-xl font-bold py-4;
+  }
+  .content-extra-info {
+    @apply text-gray-400 text-lg;
+  }
 }

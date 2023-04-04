@@ -20,6 +20,9 @@ function DropDownMenu() {
       }
     };
     document.addEventListener("mousedown", eventHandler);
+    return () => {
+      document.removeEventListener("mousedown", eventHandler);
+    };
   }, []);
   const handleLogOut = () => {
     localStorage.removeItem("USER_INFO_KEY");
@@ -45,7 +48,7 @@ function DropDownMenu() {
             {userState?.userInfo ? (
               <React.Fragment>
                 <MenuItem
-                  link="/account"
+                  link="/user-info"
                   text="Tài khoản"
                   customStyle="rounded-t-md font-bold"
                   function={undefined}
