@@ -3,7 +3,6 @@ import { CheckCircleIcon, CheckIcon } from "@heroicons/react/solid";
 import { useSelector } from "react-redux";
 function Verification() {
   const userState = useSelector((state: any) => state.userReducer);
-  console.log(userState);
   return (
     <div className="hidden md:flex border border-gray-400 rounded-md h-fit py-5 px-10 flex-col max-w-sm w-1/4">
       <img

@@ -71,13 +71,6 @@ function BookingModule(props: Props) {
       return;
     }
     try {
-      console.log({
-        maPhong: parseInt(params.roomId || "0"),
-        ngayDen: moment(startDate).format("YYYY/MM/DD"),
-        ngayDi: moment(endDate).format("YYYY/MM/DD"),
-        maNguoiDung: userState.userInfo.id,
-        soLuongKhach: guestNum,
-      });
       await bookingApi({
         maPhong: parseInt(params.roomId || "0"),
         ngayDen: moment(startDate).format("YYYY/MM/DD"),

@@ -4,7 +4,7 @@ import Rooms from "./components/rooms/Rooms";
 
 function RentedRoom() {
   return (
-    <div className="p-6 md:px-0 md:flex justify-around max-w-6xl mx-auto space-x-4">
+    <div className="p-6 md:px-0 md:flex justify-around max-w-6xl mx-auto md:space-x-4">
       <Verification />
       <Rooms />
     </div>

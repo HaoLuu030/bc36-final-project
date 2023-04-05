@@ -20,7 +20,7 @@ function UserInfo() {
     return () => {
       window.removeEventListener("scroll", modifyShadow);
     };
-  }, [window.scrollY]);
+  }, []);
   const userState = useSelector((state: any) => state.userReducer);
   const { birthday, email, name, phone } = userState.userInfo;
   return (

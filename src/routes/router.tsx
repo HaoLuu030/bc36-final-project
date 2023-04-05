@@ -11,6 +11,7 @@ import RoomDetails from "../pages/room-details/RoomDetails";
 import SignUpAndLogIn from "../pages/sign-up-and-log-in/SignUpAndLogIn";
 import UserInfo from "../pages/user-info/UserInfo";
 import RentedRoom from "../pages/rented-room/RentedRoom";
+import BeingUpdated from "../pages/being-updated/BeingUpdated";
 
 export default function Router() {
   const routing = useRoutes([
@@ -31,9 +32,10 @@ export default function Router() {
           element: <RoomByLocation />,
         },
         {
-          path: "room-details/:roomId",
+          path: "/room-details/:roomId",
           element: <RoomDetails />,
         },
+
         {
           path: "/user-info",
           element: <AuthGuard />,
@@ -76,7 +78,10 @@ export default function Router() {
         },
       ],
     },
-
+    {
+      path: "/being-updated",
+      element: <BeingUpdated />,
+    },
     {
       path: "*",
       element: <PageNotFound />,
